@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/countryId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/countryName"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="99659445123234234" />
+
+    <TextView
+        android:id="@+id/countryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/countryFlag"
+        app:layout_constraintStart_toEndOf="@id/countryId"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Country nameCountrynamenameCountrynamenameCountryname" />
+
+    <ImageView
+        android:id="@+id/countryFlag"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/country_flag_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/countryName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_launcher_foreground" />
+</androidx.constraintlayout.widget.ConstraintLayout>
