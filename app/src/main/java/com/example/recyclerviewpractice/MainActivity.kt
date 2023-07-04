@@ -7,6 +7,8 @@ import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpractice.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         adapter = ContactsAdapter(onContactClickListener)
+
+        val itemTouchHelper = ItemTouchHelper(dragAndDrop)
+        itemTouchHelper.attachToRecyclerView(binding.contactsRecyclerView)
 
         with(binding) {
             contactsRecyclerView.adapter = adapter
@@ -145,6 +150,23 @@ class MainActivity : AppCompatActivity() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.contact_dialog)
         return dialog
+    }
+
+    private val dragAndDrop = object : DragAndDrop() {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            val from = viewHolder.absoluteAdapterPosition
+            val to = target.absoluteAdapterPosition
+            viewModel.swapContacts(from, to)
+            adapter?.notifyItemMoved(from, to)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+
     }
 
 }

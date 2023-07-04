@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Collections
 
 class MainViewModel : ViewModel() {
     private val _contactsStateFlow: MutableStateFlow<List<ContactItem>> =
@@ -80,6 +81,16 @@ class MainViewModel : ViewModel() {
             item?.let {
                 it.isChecked = !it.isChecked
             }
+
+            _contactsStateFlow.emit(currentList.toList())
+        }
+    }
+
+    fun swapContacts(from: Int, to: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentList = _contactsStateFlow.value.toMutableList()
+
+            Collections.swap(currentList, from, to)
 
             _contactsStateFlow.emit(currentList.toList())
         }
