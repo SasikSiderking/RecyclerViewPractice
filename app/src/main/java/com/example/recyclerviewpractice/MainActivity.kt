@@ -161,7 +161,6 @@ class MainActivity : AppCompatActivity() {
             val from = viewHolder.absoluteAdapterPosition
             val to = target.absoluteAdapterPosition
             viewModel.swapContacts(from, to)
-            adapter?.notifyItemMoved(from, to)
             return true
         }
 
