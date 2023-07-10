@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import java.util.Collections
 
 class MainViewModel : ViewModel() {
+
     private val _contactsStateFlow: MutableStateFlow<List<ContactItem>> =
         MutableStateFlow(emptyList())
     val contactsStateFlow: Flow<List<ContactItem>> = _contactsStateFlow.asStateFlow()
@@ -40,7 +41,10 @@ class MainViewModel : ViewModel() {
             val currentList = _contactsStateFlow.value.toMutableList()
 
             val newContact =
-                ContactItem(currentList.last().id + 1, false, contactName, contactNumber)
+                ContactItem(currentList.maxOf { contactItem -> contactItem.id } + 1,
+                    false,
+                    contactName,
+                    contactNumber)
             currentList.add(newContact)
 
             _contactsStateFlow.emit(currentList.toList())
@@ -91,8 +95,6 @@ class MainViewModel : ViewModel() {
             val currentList = _contactsStateFlow.value.toMutableList()
 
             Collections.swap(currentList, from, to)
-
-            _contactsStateFlow.emit(currentList.toList())
         }
     }
 }

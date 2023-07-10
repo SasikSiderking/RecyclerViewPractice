@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerviewpractice.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
+import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     private val chosenContactIds: MutableList<Int> = mutableListOf()
+
+    private var items: List<ContactItem> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.contactsStateFlow.collect { contacts ->
                 adapter?.items = contacts
                 updateButtons()
+
+                items = contacts
             }
         }
     }
@@ -160,11 +165,14 @@ class MainActivity : AppCompatActivity() {
         ): Boolean {
             val from = viewHolder.absoluteAdapterPosition
             val to = target.absoluteAdapterPosition
+            Collections.swap(items, from, to)
+            adapter?.items = items
+            adapter?.notifyItemMoved(from, to)
             viewModel.swapContacts(from, to)
             return true
         }
 
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
 
     }
 
