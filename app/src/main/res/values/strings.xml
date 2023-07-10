@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">RecyclerViewPractice</string>
+    <string name="add_button">add button</string>
+    <string name="edit_button">edit button</string>
+    <string name="delete_button">delete button</string>
+    <string name="contact_name_hint">Lordus Volandemordus</string>
+    <string name="phone_edit_text_hint">8–800–555–35–35</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
 </resources>
